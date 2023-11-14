@@ -27,7 +27,7 @@ pipeline {
       stage('Deploy') {
           steps {
               script {
-                  sh 'java -jar target/miracle-image-server-0.0.1-SNAPSHOT.jar'
+                  sh 'sudo java -jar target/miracle-image-server-0.0.1-SNAPSHOT.jar'
               }
           }
       }
