@@ -25,7 +25,7 @@ import java.util.UUID;
 @Slf4j
 public class ImageServiceImpl implements ImageService {
 
-    @Value("${upload.path.images}")
+    @Value("${upload.path.images.linux}")
     private String uploadPath;
     private final ImageRepository imageRepository;
 
