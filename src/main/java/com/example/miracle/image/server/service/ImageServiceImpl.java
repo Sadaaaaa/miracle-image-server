@@ -38,29 +38,28 @@ public class ImageServiceImpl implements ImageService {
         this.imageRepository = imageRepository;
     }
 
-    @PostConstruct
-    public void init() {
-        try {
-            Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rwxr-x---");
-            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(perms);
-            Files.createDirectory(Paths.get(uploadPath), attr);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create upload folder!");
-        }
-    }
+//    @PostConstruct
+//    public void init() {
+//        try {
+//            Set<PosixFilePermission> perms = PosixFilePermissions.fromString("rwxr-x---");
+//            FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(perms);
+//            Files.createDirectory(Paths.get(uploadPath), attr);
+//        } catch (IOException e) {
+//            throw new RuntimeException("Could not create upload folder!");
+//        }
+//    }
 
     @Override
     public Object saveImage(MultipartFile file, ImageDto imageDto) {
         try {
             Path root = Paths.get(uploadPath);
-            if (!Files.exists(root)) {
-                init();
-            }
+//            if (!Files.exists(root)) {
+//                init();
+//            }
 
             String originalFileName = file.getOriginalFilename();
             assert originalFileName != null;
             String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
-//        String fileName = "" + System.currentTimeMillis() + ext;
             UUID uuid = UUID.randomUUID();
             String fileName = uuid + ext;
 
@@ -84,9 +83,9 @@ public class ImageServiceImpl implements ImageService {
     public String save(MultipartFile multipartFile, HttpServletRequest request) {
         try {
             Path root = Paths.get(uploadPath);
-            if (!Files.exists(root)) {
-                init();
-            }
+//            if (!Files.exists(root)) {
+//                init();
+//            }
 
             String originalFileName = multipartFile.getOriginalFilename();
             assert originalFileName != null;
