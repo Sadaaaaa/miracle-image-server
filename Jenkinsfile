@@ -8,14 +8,6 @@ pipeline {
   }
 
   stages {
-//       stage('Checkout') {
-//           steps {
-//               script {
-//                   git 'https://github.com/ваш-репозиторий.git'
-//               }
-//           }
-//       }
-
       stage('Build') {
           steps {
               script {
@@ -25,9 +17,18 @@ pipeline {
       }
 
       stage('Deploy') {
+          when {
+               anyOf {
+                    branch 'develop'
+                    branch 'master'
+//                     expression { params.deployPresident }
+//                     expression { params.sandbox }
+//                     expression { params.baltiyskiyBereg }
+               }
+          }
           steps {
               script {
-                  sh 'echo poik123 | sudo -S java -jar target/miracle-image-server-0.0.1-SNAPSHOT.jar'
+                  sh 'echo poik123 | sudo -S nohup ./mvnw spring-boot:run -Dserver.port=8090 &'
               }
           }
       }
