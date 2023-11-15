@@ -74,6 +74,9 @@ pipeline {
                     // Копирование скрипта в рабочий каталог
                     sh "cp deploy.sh /var/lib/jenkins/workspace/miracle-image-server/"
 
+                    // Предоставление прав на выполнение deploy.sh
+                    sh "chmod +x deploy.sh"
+
                     // Вызов скрипта для управления приложением
                     sh "./deploy.sh restart"
                 }
