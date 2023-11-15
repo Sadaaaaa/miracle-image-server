@@ -17,10 +17,10 @@ pipeline {
       }
 
       stage('Deploy') {
-          when {
-            branch 'master'
-            branch 'develop'
-          }
+//           when {
+//             branch 'master'
+//             branch 'develop'
+//           }
           steps {
               script {
                   sh 'echo poik123 | sudo -S ./mvnw spring-boot:run'
