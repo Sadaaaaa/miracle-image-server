@@ -18,13 +18,8 @@ pipeline {
 
       stage('Deploy') {
           when {
-               anyOf {
-                    branch 'develop'
-                    branch 'master'
-//                     expression { params.deployPresident }
-//                     expression { params.sandbox }
-//                     expression { params.baltiyskiyBereg }
-               }
+            branch 'master'
+            branch 'develop'
           }
           steps {
               script {
