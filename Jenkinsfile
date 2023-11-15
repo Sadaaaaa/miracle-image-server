@@ -17,13 +17,18 @@ pipeline {
       }
 
       stage('Deploy') {
-//           when {
-//             branch 'master'
-//             branch 'develop'
-//           }
+          when {
+               anyOf {
+                    branch 'develop'
+                    branch 'master'
+//                     expression { params.deployPresident }
+//                     expression { params.sandbox }
+//                     expression { params.baltiyskiyBereg }
+               }
+          }
           steps {
               script {
-                  sh 'echo poik123 | sudo -S ./mvnw spring-boot:run'
+                  sh 'echo poik123 | sudo -S java -jar target/miracle-image-server-0.0.1-SNAPSHOT.jar'
               }
           }
       }
