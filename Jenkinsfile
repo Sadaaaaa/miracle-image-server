@@ -75,7 +75,7 @@ pipeline {
                     sh "cp deploy.sh /var/lib/jenkins/workspace/miracle-image-server/"
 
                     // Вызов скрипта для управления приложением
-                    sh "echo poik123 | sudo -S ./deploy.sh restart"
+                    sh "./deploy.sh restart"
                 }
             }
         }
