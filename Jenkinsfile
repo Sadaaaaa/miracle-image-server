@@ -19,7 +19,7 @@ pipeline {
       stage('Deploy') {
           steps {
               script {
-                  sh 'echo poik123 | sudo -S java -jar target/miracle-image-server-0.0.1-SNAPSHOT.jar'
+                  sh 'echo poik123 | sudo -S lsof -i :8090'
               }
           }
       }
