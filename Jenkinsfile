@@ -72,7 +72,7 @@ pipeline {
                     sh "cp target/${JAR_FILE} ."
 
                     // Вызов скрипта для управления приложением
-                    sh "./start_spring_app.sh restart"
+                    sh "/var/lib/jenkins/workspace/miracle-image-server/start_spring_app.sh restart"
                 }
             }
         }
