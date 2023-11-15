@@ -71,8 +71,8 @@ pipeline {
                     // Копирование JAR-файла в рабочий каталог
                     sh "cp target/${JAR_FILE} ."
 
-                    // Копирование скрипта в рабочий каталог
-                    sh "cp deploy.sh /var/lib/jenkins/workspace/miracle-image-server/"
+//                     // Копирование скрипта в рабочий каталог
+//                     sh "cp deploy.sh /var/lib/jenkins/workspace/miracle-image-server/"
 
                     // Предоставление прав на выполнение deploy.sh
                     sh "chmod +x deploy.sh"
