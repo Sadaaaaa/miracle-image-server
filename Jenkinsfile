@@ -17,9 +17,18 @@ pipeline {
       }
 
       stage('Deploy') {
+//           when {
+//                anyOf {
+//                     branch 'develop'
+//                     branch 'master'
+// //                     expression { params.deployPresident }
+// //                     expression { params.sandbox }
+// //                     expression { params.baltiyskiyBereg }
+//                }
+//           }
           steps {
               script {
-                  sh 'echo poik123 | sudo -S lsof -i :8090'
+                  sh 'echo poik123 | sudo -S nohup ./mvnw spring-boot:run'
               }
           }
       }
