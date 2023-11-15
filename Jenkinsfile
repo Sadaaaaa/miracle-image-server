@@ -68,6 +68,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
+                    sh 'echo poik123 | sudo -S'
+
                     // Копирование JAR-файла в рабочий каталог
                     sh "cp target/${JAR_FILE} ."
 
