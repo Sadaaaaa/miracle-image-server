@@ -68,8 +68,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'echo poik123 | sudo -S'
-
                     // Копирование JAR-файла в рабочий каталог
                     sh "cp target/${JAR_FILE} ."
 
@@ -77,7 +75,7 @@ pipeline {
                     sh "cp deploy.sh /var/lib/jenkins/workspace/miracle-image-server/"
 
                     // Вызов скрипта для управления приложением
-                    sh "./deploy.sh restart"
+                    sh "echo poik123 | sudo -S ./deploy.sh restart"
                 }
             }
         }
