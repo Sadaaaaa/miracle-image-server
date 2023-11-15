@@ -28,7 +28,7 @@ pipeline {
 //           }
           steps {
               script {
-                  sh 'echo poik123 | sudo -S nohup ./mvnw spring-boot:run'
+                  sh 'echo poik123 | sudo -S ./mvnw spring-boot:run'
               }
           }
       }
