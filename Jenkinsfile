@@ -71,8 +71,11 @@ pipeline {
                     // Копирование JAR-файла в рабочий каталог
                     sh "cp target/${JAR_FILE} ."
 
+                    // Копирование скрипта в рабочий каталог
+                    sh "cp /var/lib/jenkins/workspace/start_spring_app.sh ."
+
                     // Вызов скрипта для управления приложением
-                    sh "/var/lib/jenkins/workspace/miracle-image-server/start_spring_app.sh restart"
+                    sh "./start_spring_app.sh restart"
                 }
             }
         }
