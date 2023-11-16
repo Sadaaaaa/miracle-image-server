@@ -165,7 +165,7 @@ pipeline {
                         sh "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/home/serg/.ssh/known_hosts -i /home/serg/.ssh/id_rsa serg@192.168.88.77 'chmod +x /home/serg/miracle-image-server/'"
                         // Copy deploy.sh and JAR file to the remote server
                         sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r deploy.sh ${REMOTE_USERNAME}@${REMOTE_SERVER}:${REMOTE_DESTINATION}/"
-                        sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r /home/serg/miracle-image-server-0.0.1-SNAPSHOT.jar ${REMOTE_USERNAME}@${REMOTE_SERVER}:${REMOTE_DESTINATION}/"
+                        sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r miracle-image-server-0.0.1-SNAPSHOT.jar ${REMOTE_USERNAME}@${REMOTE_SERVER}:${REMOTE_DESTINATION}/"
                     }
                 }
             }
