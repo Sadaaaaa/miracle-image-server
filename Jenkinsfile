@@ -54,20 +54,20 @@ pipeline {
                         remoteRoot: '/home/serg/miracle-image-server'
                     ]
 
-//                    sshPublisher(publishers: [
-//                        sshPublisherDesc(configName: 'Miracle image server', transfers: [
-//                            sshTransfer(execCommand: 'sudo service your-app restart',
-//                                        execTimeout: 120000,
-//                                        flatten: false,
-//                                        makeEmptyDirs: false,
-//                                        noDefaultExcludes: false,
-//                                        patternSeparator: '[, ]+',
-//                                        remoteDirectory: '.',
-//                                        remoteDirectorySDF: false,
-//                                        removePrefix: 'target',
-//                                        sourceFiles: 'target/*.jar')
-//                        ])
-//                    ])
+                    sshPublisher(publishers: [
+                        sshPublisherDesc(configName: 'Miracle image server', transfers: [
+                            sshTransfer(execCommand: 'sudo service miracle-image-server restart',
+                                        execTimeout: 120000,
+                                        flatten: false,
+                                        makeEmptyDirs: false,
+                                        noDefaultExcludes: false,
+                                        patternSeparator: '[, ]+',
+                                        remoteDirectory: '.',
+                                        remoteDirectorySDF: false,
+                                        removePrefix: 'target',
+                                        sourceFiles: 'target/*.jar')
+                        ])
+                    ])
 
                     // Предоставление прав на выполнение deploy.sh
                     sh "chmod +x deploy.sh"
@@ -75,11 +75,6 @@ pipeline {
                     // Вызов скрипта для управления приложением
                     sh "./deploy.sh restart"
 
-                    // Выполнение команды с сохранением вывода
-                    def result = sh(script: './deploy.sh', returnStatus: true)
-                    if (result != 0) {
-                        error "Deploy failed. Exit code: ${result}"
-                    }
                 }
             }
         }
