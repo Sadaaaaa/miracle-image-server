@@ -68,10 +68,22 @@ pipeline {
                                         sourceFiles: 'target/*.jar')
                         ])
                     ])
+
+                    // Предоставление прав на выполнение deploy.sh
+                    sh "chmod +x deploy.sh"
+
+                    // Вызов скрипта для управления приложением
+                    sh "./deploy.sh restart"
+
+                    // Выполнение команды с сохранением вывода
+                    def result = sh(script: './deploy.sh', returnStatus: true)
+                    if (result != 0) {
+                        error "Deploy failed. Exit code: ${result}"
+                    }
                 }
             }
         }
-    }
+
 
     post {
         success {
