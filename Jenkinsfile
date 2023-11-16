@@ -45,8 +45,8 @@
 //}
 
 
-pipeline {
-    agent any
+//pipeline {
+//    agent any
 
 //    environment {
 //        REMOTE_SERVER = '192.168.88.77'  // Замените на адрес вашего удаленного сервера
