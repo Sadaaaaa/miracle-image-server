@@ -186,7 +186,7 @@ pipeline {
 
                     sshPublisher(publishers: [
                             sshPublisherDesc(configName: 'Miracle image server', transfers: [
-                                    sshTransfer(execCommand: 'sudo service miracle-image-server restart',
+                                    sshTransfer(execCommand: './deploy.sh restart',
                                             execTimeout: 120000,
                                             flatten: false,
                                             makeEmptyDirs: false,
