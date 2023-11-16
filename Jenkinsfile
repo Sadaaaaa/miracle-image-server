@@ -156,14 +156,17 @@ pipeline {
         stage('Copy Files to Remote Server') {
             steps {
                 script {
+                    sshagent(['/home/serg/.ssh/id_rsa']) {
+                        // Ваш код SSH-команд здесь
 
-                    // Set execute permissions on deploy.sh using SSH key
+                        // Set execute permissions on deploy.sh using SSH key
 //                    sh "ssh -i /home/serg/.ssh/id_rsa ${REMOTE_USERNAME}@${REMOTE_SERVER} 'chmod +x ${REMOTE_DESTINATION}/${ABSOLUTE_PATH_TO_DEPLOY_SH}'"
 
-                    sh "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/home/serg/.ssh/known_hosts -i /home/serg/.ssh/id_rsa serg@192.168.88.77 'chmod +x /home/serg/miracle-image-server/'"
-                    // Copy deploy.sh and JAR file to the remote server
-                    sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r deploy.sh ${REMOTE_USERNAME}@${REMOTE_SERVER}:${REMOTE_DESTINATION}/"
-                    sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r path/to/your/artifact.jar ${REMOTE_USERNAME}@${REMOTE_SERVER}:${REMOTE_DESTINATION}/"
+                        sh "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/home/serg/.ssh/known_hosts -i /home/serg/.ssh/id_rsa serg@192.168.88.77 'chmod +x /home/serg/miracle-image-server/'"
+                        // Copy deploy.sh and JAR file to the remote server
+                        sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r deploy.sh ${REMOTE_USERNAME}@${REMOTE_SERVER}:${REMOTE_DESTINATION}/"
+                        sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r path/to/your/artifact.jar ${REMOTE_USERNAME}@${REMOTE_SERVER}:${REMOTE_DESTINATION}/"
+                    }
                 }
             }
         }
