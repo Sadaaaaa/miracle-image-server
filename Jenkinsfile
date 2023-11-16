@@ -158,7 +158,7 @@ pipeline {
                 script {
 
                     // Set execute permissions on deploy.sh using SSH key
-                    sh "ssh -i /home/serg/.ssh/ ${REMOTE_USERNAME}@${REMOTE_SERVER} 'chmod +x ${REMOTE_DESTINATION}/${ABSOLUTE_PATH_TO_DEPLOY_SH}'"
+                    sh "ssh -i /home/serg/.ssh/id_rsa ${REMOTE_USERNAME}@${REMOTE_SERVER} 'chmod +x ${REMOTE_DESTINATION}/${ABSOLUTE_PATH_TO_DEPLOY_SH}'"
 
                     // Copy deploy.sh and JAR file to the remote server
                     sh "scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r deploy.sh ${REMOTE_USERNAME}@${REMOTE_SERVER}:${REMOTE_DESTINATION}/"
