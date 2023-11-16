@@ -171,63 +171,63 @@ pipeline {
             }
         }
 
-//        stage('Deploy to Remote Server') {
-//            steps {
-//                script {
-//                    def remoteServer = [
-//                            $class    : 'BapSshHostConfiguration',
-//                            hostname  : '192.168.88.77',
-//                            username  : 'serg',
-//                            remoteRoot: '/home/serg/miracle-image-server'
-//                    ]
-//
-//                    sshPublisher(publishers: [
-//                            sshPublisherDesc(configName: 'Miracle image server', transfers: [
-//                                    sshTransfer(execCommand: 'sudo service miracle-image-server restart',
-//                                            execTimeout: 120000,
-//                                            flatten: false,
-//                                            makeEmptyDirs: false,
-//                                            noDefaultExcludes: false,
-//                                            patternSeparator: '[, ]+',
-//                                            remoteDirectory: '.',
-//                                            remoteDirectorySDF: false,
-//                                            removePrefix: 'target',
-//                                            sourceFiles: 'target/*.jar')
-//                            ])
-//                    ])
-//
-//
-////                    // Копирование JAR-файла в удаленный сервер
-////                    sh "scp target/${JAR_FILE} ${REMOTE_USER}@${REMOTE_SERVER}:${REMOTE_PATH}"
-////
-////                    // Выполнение скрипта на удаленном сервере для запуска приложения
-////                    sh "ssh ${REMOTE_USER}@${REMOTE_SERVER} 'cd ${REMOTE_PATH} && ./deploy.sh restart'"
-//                }
-//            }
-//        }
-//    }
-
         stage('Deploy to Remote Server') {
             steps {
                 script {
-                    // Копирование файлов на удаленный сервер
-                    sshPublisher(
-                            publishers: [
-                                    sshPublisherDesc(
-                                            configName: 'Miracle image server',
-                                            transfers: [
-                                                    sshTransfer(
-                                                            sourceFiles: '/home/serg/miracle-image-server/miracle-image-server-0.0.1-SNAPSHOT.jar',  // Путь к вашему JAR-файлу
-                                                            execCommand: './deploy.sh start',      // Команда для запуска deploy.sh
-                                                            execTimeout: 120000,                     // Таймаут выполнения команды
-                                                            remoteDirectory: REMOTE_DESTINATION
-                                                    )
-                                            ]
-                                    )
-                            ]
-                    )
+                    def remoteServer = [
+                            $class    : 'BapSshHostConfiguration',
+                            hostname  : '192.168.88.77',
+                            username  : 'serg',
+                            remoteRoot: '/home/serg/miracle-image-server'
+                    ]
+
+                    sshPublisher(publishers: [
+                            sshPublisherDesc(configName: 'Miracle image server', transfers: [
+                                    sshTransfer(execCommand: 'sudo service miracle-image-server restart',
+                                            execTimeout: 120000,
+                                            flatten: false,
+                                            makeEmptyDirs: false,
+                                            noDefaultExcludes: false,
+                                            patternSeparator: '[, ]+',
+                                            remoteDirectory: '.',
+                                            remoteDirectorySDF: false,
+                                            removePrefix: 'target',
+                                            sourceFiles: 'target/*.jar')
+                            ])
+                    ])
+
+
+//                    // Копирование JAR-файла в удаленный сервер
+//                    sh "scp target/${JAR_FILE} ${REMOTE_USER}@${REMOTE_SERVER}:${REMOTE_PATH}"
+//
+//                    // Выполнение скрипта на удаленном сервере для запуска приложения
+//                    sh "ssh ${REMOTE_USER}@${REMOTE_SERVER} 'cd ${REMOTE_PATH} && ./deploy.sh restart'"
                 }
             }
         }
     }
+
+//        stage('Deploy to Remote Server') {
+//            steps {
+//                script {
+//                    // Копирование файлов на удаленный сервер
+//                    sshPublisher(
+//                            publishers: [
+//                                    sshPublisherDesc(
+//                                            configName: 'Miracle image server',
+//                                            transfers: [
+//                                                    sshTransfer(
+//                                                            sourceFiles: '/home/serg/miracle-image-server/miracle-image-server-0.0.1-SNAPSHOT.jar',  // Путь к вашему JAR-файлу
+//                                                            execCommand: './deploy.sh start',      // Команда для запуска deploy.sh
+//                                                            execTimeout: 120000,                     // Таймаут выполнения команды
+//                                                            remoteDirectory: REMOTE_DESTINATION
+//                                                    )
+//                                            ]
+//                                    )
+//                            ]
+//                    )
+//                }
+//            }
+//        }
+//    }
 }
