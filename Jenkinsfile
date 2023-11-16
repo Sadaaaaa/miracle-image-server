@@ -77,7 +77,6 @@ pipeline {
             }
         }
 
-    stages {
         stage('Deploy to Remote Server') {
             steps {
 
