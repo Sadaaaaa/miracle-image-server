@@ -157,11 +157,7 @@ pipeline {
             steps {
                 script {
                     // Set execute permissions on deploy.sh
-                    sshCommand remote: [
-                            host: REMOTE_SERVER,
-                            user: REMOTE_USERNAME,
-                            password: REMOTE_PASSWORD
-                    ], command: "chmod +x ${REMOTE_DESTINATION}/${ABSOLUTE_PATH_TO_DEPLOY_SH}"
+                    sh "sshpass -p ${REMOTE_PASSWORD} ssh ${REMOTE_USERNAME}@${REMOTE_SERVER} chmod +x ${REMOTE_DESTINATION}/${ABSOLUTE_PATH_TO_DEPLOY_SH}"
                 }
             }
         }
