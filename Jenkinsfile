@@ -54,20 +54,20 @@ pipeline {
                         remoteRoot: '/home/serg/miracle-image-server'
                     ]
 
-                    sshPublisher(publishers: [
-                        sshPublisherDesc(configName: 'Miracle image server', transfers: [
-                            sshTransfer(execCommand: 'sudo service your-app restart',
-                                        execTimeout: 120000,
-                                        flatten: false,
-                                        makeEmptyDirs: false,
-                                        noDefaultExcludes: false,
-                                        patternSeparator: '[, ]+',
-                                        remoteDirectory: '.',
-                                        remoteDirectorySDF: false,
-                                        removePrefix: 'target',
-                                        sourceFiles: 'target/*.jar')
-                        ])
-                    ])
+//                    sshPublisher(publishers: [
+//                        sshPublisherDesc(configName: 'Miracle image server', transfers: [
+//                            sshTransfer(execCommand: 'sudo service your-app restart',
+//                                        execTimeout: 120000,
+//                                        flatten: false,
+//                                        makeEmptyDirs: false,
+//                                        noDefaultExcludes: false,
+//                                        patternSeparator: '[, ]+',
+//                                        remoteDirectory: '.',
+//                                        remoteDirectorySDF: false,
+//                                        removePrefix: 'target',
+//                                        sourceFiles: 'target/*.jar')
+//                        ])
+//                    ])
 
                     // Предоставление прав на выполнение deploy.sh
                     sh "chmod +x deploy.sh"
