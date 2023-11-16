@@ -1,41 +1,3 @@
-// pipeline {
-//   agent any
-//   tools {
-//       maven 'Maven 3.9.5'
-//   }
-//   environment {
-//     JAVA_HOME = '/usr/lib/jvm/java-21-openjdk-amd64/'
-//   }
-//
-//   stages {
-//       stage('Build') {
-//           steps {
-//               script {
-//                   sh 'mvn -B -DskipTests clean package'
-//               }
-//           }
-//       }
-//
-//       stage('Deploy') {
-//           when {
-//                anyOf {
-//                     branch 'develop'
-//                     branch 'master'
-// //                     expression { params.deployPresident }
-// //                     expression { params.sandbox }
-// //                     expression { params.baltiyskiyBereg }
-//                }
-//           }
-//           steps {
-//               script {
-//                   sh 'echo poik123 | sudo -S java -jar target/miracle-image-server-0.0.1-SNAPSHOT.jar'
-//               }
-//           }
-//       }
-//   }
-// }
-//
-
 pipeline {
     agent any
 
@@ -65,20 +27,47 @@ pipeline {
             }
         }
 
+//         stage('Deploy') {
+//             steps {
+//                 script {
+//                     // Копирование JAR-файла в рабочий каталог
+//                     sh "cp target/${JAR_FILE} ."
+//
+//                     // Предоставление прав на выполнение deploy.sh
+//                     sh "chmod +x deploy.sh"
+//
+//                     // Вызов скрипта для управления приложением
+//                     sh "./deploy.sh restart"
+//                 }
+//             }
+//         }
+//     }
+
         stage('Deploy') {
             steps {
+                // Шаг для деплоя на удаленный сервер по SSH
                 script {
-                    // Копирование JAR-файла в рабочий каталог
-                    sh "cp target/${JAR_FILE} ."
+                    def remoteServer = [
+                        $class: 'BapSshHostConfiguration',
+                        hostname: '192.168.88.77',
+                        username: 'serg',
+                        remoteRoot: '/home/serg/miracle-image-server'
+                    ]
 
-//                     // Копирование скрипта в рабочий каталог (может и не надо)
-//                     sh "cp deploy.sh /var/lib/jenkins/workspace/miracle-image-server/"
-
-                    // Предоставление прав на выполнение deploy.sh
-                    sh "chmod +x deploy.sh"
-
-                    // Вызов скрипта для управления приложением
-                    sh "./deploy.sh restart"
+                    sshPublisher(publishers: [
+                        sshPublisherDesc(configName: 'Miracle image server', transfers: [
+                            sshTransfer(execCommand: 'sudo service your-app restart',
+                                        execTimeout: 120000,
+                                        flatten: false,
+                                        makeEmptyDirs: false,
+                                        noDefaultExcludes: false,
+                                        patternSeparator: '[, ]+',
+                                        remoteDirectory: '.',
+                                        remoteDirectorySDF: false,
+                                        removePrefix: 'target',
+                                        sourceFiles: 'target/*.jar')
+                        ])
+                    ])
                 }
             }
         }
