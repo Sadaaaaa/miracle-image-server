@@ -133,6 +133,7 @@ pipeline {
         REMOTE_USERNAME = 'serg'
         REMOTE_PASSWORD = 'poik123'
         REMOTE_DESTINATION = '/home/serg/miracle-image-server'
+        ABSOLUTE_PATH_TO_DEPLOY_SH = '/home/serg/miracle-image-server/deploy.sh'
     }
 
     stages {
@@ -148,6 +149,19 @@ pipeline {
                 script {
                     // Ваша логика сборки, если необходимо
                     sh 'mvn -B -DskipTests clean package'
+                }
+            }
+        }
+
+        stage('Set Execute Permissions') {
+            steps {
+                script {
+                    // Set execute permissions on deploy.sh
+                    sshCommand remote: [
+                            host: REMOTE_SERVER,
+                            user: REMOTE_USERNAME,
+                            password: REMOTE_PASSWORD
+                    ], command: "chmod +x ${REMOTE_DESTINATION}/${ABSOLUTE_PATH_TO_DEPLOY_SH}"
                 }
             }
         }
