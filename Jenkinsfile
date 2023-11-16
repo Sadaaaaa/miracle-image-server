@@ -174,6 +174,9 @@ pipeline {
         stage('Deploy to Remote Server') {
             steps {
                 script {
+
+                    try {
+
                     def remoteServer = [
                             $class    : 'BapSshHostConfiguration',
                             hostname  : '192.168.88.77',
@@ -197,6 +200,9 @@ pipeline {
                     ])
 
 
+                    } catch (Exception e) {
+                        echo "Error: ${e.getMessage()}"
+                    }
 //                    // Копирование JAR-файла в удаленный сервер
 //                    sh "scp target/${JAR_FILE} ${REMOTE_USER}@${REMOTE_SERVER}:${REMOTE_PATH}"
 //
