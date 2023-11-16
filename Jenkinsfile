@@ -108,10 +108,10 @@ pipeline {
             steps {
                 script {
                     // Копирование JAR-файла в удаленный сервер
-                    sh "scp target/${JAR_FILE} ${REMOTE_USER}@${REMOTE_SERVER}:${REMOTE_PATH}"
+                    sh "sshpass -p 'poik123' scp target/${JAR_FILE} ${REMOTE_USER}@${REMOTE_SERVER}:${REMOTE_PATH}"
 
                     // Выполнение скрипта на удаленном сервере для запуска приложения
-                    sh "ssh ${REMOTE_USER}@${REMOTE_SERVER} 'cd ${REMOTE_PATH} && ./deploy.sh restart'"
+                    sh "sshpass -p 'poik123' ssh ${REMOTE_USER}@${REMOTE_SERVER} 'cd ${REMOTE_PATH} && ./deploy.sh restart'"
                 }
             }
         }
