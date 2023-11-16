@@ -153,15 +153,6 @@ pipeline {
             }
         }
 
-        stage('Set Execute Permissions') {
-            steps {
-                script {
-                    // Set execute permissions on deploy.sh
-                    sh "sshpass -p ${REMOTE_PASSWORD} ssh ${REMOTE_USERNAME}@${REMOTE_SERVER} chmod +x ${REMOTE_DESTINATION}/${ABSOLUTE_PATH_TO_DEPLOY_SH}"
-                }
-            }
-        }
-
         stage('Deploy to Remote Server') {
             steps {
                 script {
